@@ -33,6 +33,8 @@
 
   background-color: var(--color-white);
 
+  box-shadow: var(--post-shadow);
+
   &__title,
   &__text,
   &__author {
