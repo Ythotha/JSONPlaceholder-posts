@@ -7,7 +7,7 @@
       {{ data.body }}
     </span>
     <span class="post__author">
-      {{ author.name }}
+      {{ author }}
     </span>
   </li>
 </template>

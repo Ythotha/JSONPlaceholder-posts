@@ -4,7 +4,7 @@
       v-for="post in posts"
       :key="post.id"
       :data="post"
-      :author="users[post.userId]"
+      :author="users[post.userId].name"
       class="posts__item"
     >
     </posts-item>
