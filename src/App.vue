@@ -1,47 +1,56 @@
-<script setup>
-import HelloWorld from './components/HelloWorld.vue'
-import TheWelcome from './components/TheWelcome.vue'
-</script>
-
 <template>
-  <header>
-    <img alt="Vue logo" class="logo" src="./assets/logo.svg" width="125" height="125" />
-
-    <div class="wrapper">
-      <HelloWorld msg="You did it!" />
-    </div>
-  </header>
-
-  <main>
-    <TheWelcome />
-  </main>
+  <div class="app">
+    <posts-list
+      v-if="!isDataLoading"
+      :posts="posts"
+      :users="users"
+    >
+    </posts-list>
+    <post-item
+      
+      :data="posts[0]"
+      author="kek"
+    ></post-item>
+  </div>
 </template>
 
-<style scoped>
-header {
-  line-height: 1.5;
-}
+<script setup>
+import arrayToObject from '@/helpers/arrayToObject'
 
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
-}
+import { ref, computed,  onMounted } from 'vue'
 
-@media (min-width: 1024px) {
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
-  }
+import PostsList from './components/PostsList/PostsList.vue'
 
-  .logo {
-    margin: 0 2rem 0 0;
-  }
+const posts = ref({})
+const isPostsLoading = ref(true)
 
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
+const users = ref({})
+const isUsersLoading = ref(true)
+
+const isDataLoading = computed(() => {
+  return isPostsLoading.value || isUsersLoading.value
+})
+
+onMounted(() => {
+  fetch('https://jsonplaceholder.typicode.com/posts')
+  .then((response) => response.json())
+  .then((json) => {
+    posts.value = json
+    isPostsLoading.value = false
+  });
+
+  fetch('https://jsonplaceholder.typicode.com/users')
+  .then((response) => response.json())
+  .then((json) => {
+    users.value = arrayToObject(json)
+    isUsersLoading.value = false
+  });
+})
+</script>
+
+<style lang="postcss">
+.app {
+  min-height: 100vh;
+  background-color: var(--color-lightblue);
 }
 </style>
