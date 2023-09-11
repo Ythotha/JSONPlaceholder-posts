@@ -1,6 +1,6 @@
 # jsonplaceholder
 
-This template should help get you started developing with Vue 3 in Vite.
+[GH pages](https://ythotha.github.io/JSONPlaceholder-posts/)
 
 ## Recommended IDE Setup
 
